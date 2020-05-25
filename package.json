@@ -1,5 +1,8 @@
 {
   "private": true,
+  "scripts": {
+    "hw": "yarn workspace gatsby-hello-world"
+  },
   "workspaces": [
     "packages/*"
   ]
