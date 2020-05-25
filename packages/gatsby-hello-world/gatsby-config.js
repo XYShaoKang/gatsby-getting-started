@@ -5,13 +5,21 @@
  */
 
 module.exports = {
-  /* Your site config here */
   plugins: [
     {
       resolve: `gatsby-plugin-styled-components`,
+      options: {},
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
       options: {
-        // Add any options here
+        name: `docs`,
+        path: `${__dirname}/docs/`,
       },
+    },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {},
     },
   ],
 }
