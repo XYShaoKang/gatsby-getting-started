@@ -1,9 +1,17 @@
 {
   "private": true,
+  "name": "gatsby-getting-started",
   "scripts": {
-    "hw": "yarn workspace gatsby-hello-world"
+    "hw": "yarn workspace gatsby-hello-world",
+    "www": "yarn workspace www",
+    "build": "node build.js",
+    "clean": "rm -rf public && yarn workspaces run clean"
   },
   "workspaces": [
-    "packages/*"
-  ]
+    "packages/*",
+    "examples/*"
+  ],
+  "devDependencies": {
+    "shelljs": "^0.8.4"
+  }
 }
