@@ -4,6 +4,7 @@ module.exports = {
     'google',
     'eslint:recommended',
     'plugin:react/recommended',
+    'plugin:prettier/recommended',
   ],
   plugins: ['react', 'filenames'],
   parserOptions: {
