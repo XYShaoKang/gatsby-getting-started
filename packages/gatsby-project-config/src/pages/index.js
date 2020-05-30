@@ -1,6 +1,6 @@
-import React from "react"
-import styled from "styled-components"
-import { graphql } from "gatsby"
+import React from 'react'
+import styled from 'styled-components'
+import { graphql } from 'gatsby'
 
 const Title = styled.h1`
   font-size: 1.5em;
