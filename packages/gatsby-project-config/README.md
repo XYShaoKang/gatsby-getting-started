@@ -1,209 +1,284 @@
-# Gatsby 入门
+# Gatsby 项目配置
 
-查看[演示](https://xyshaokang.github.io/gatsby-getting-started/gatsby-hello-world/)
+- [Gatsby 项目配置](#gatsby-项目配置)
+  - [初始化](#初始化)
+  - [Prettier 配置](#prettier-配置)
+    - [安装 VSCode 扩展](#安装-vscode-扩展)
+    - [安装依赖](#安装依赖)
+    - [Prettier 配置文件`.prettierrc.js`](#prettier-配置文件prettierrcjs)
+  - [ESLint 配置](#eslint-配置)
+    - [安装 VSCode 扩展](#安装-vscode-扩展-1)
+    - [安装 ESLint 依赖](#安装-eslint-依赖)
+    - [ESLint 配置文件`.eslintrc.js`](#eslint-配置文件eslintrcjs)
+  - [解决 Prettier ESLint 规则冲突](#解决-prettier-eslint-规则冲突)
+  - [VSCode 中 Prettier 和 ESLint 协作](#vscode-中-prettier-和-eslint-协作)
+    - [方式一:使用 Prettier 扩展来格式化代码](#方式一使用-prettier-扩展来格式化代码)
+    - [方式二:使用 ESLint 扩展来格式化代码](#方式二使用-eslint-扩展来格式化代码)
+  - [调试 Gatsby 配置](#调试-gatsby-配置)
+    - [调试构建过程](#调试构建过程)
+    - [调试客户端](#调试客户端)
 
-- [Gatsby 入门](#gatsby-入门)
-  - [初始化项目](#初始化项目)
-  - [支持 styled-components](#支持-styled-components)
-  - [解析 Markdown 文件](#解析-markdown-文件)
-  - [资源](#资源)
+## 初始化
 
-## 初始化项目
-
-- 全局安装 Gatsby 命令行工具
-- 使用 gatsby 初始化项目
-
-初始化方式一:
-
-```sh
-# 安装全局命令行工具 gatsby,然后使用 gatsby 初始化项目
-yarn global add gatsby-cli # or npm install -g gatsby-cli
-gatsby new gatsby-hello-world https://github.com/gatsbyjs/gatsby-starter-hello-world
-```
-
-初始化方式二:
-
-```sh
-# 如果不想全局安装 gatsby,可以使用 npx
-npx gatsby new gatsby-hello-world https://github.com/gatsbyjs/gatsby-starter-hello-world
-```
-
-进入项目,运行程序,在浏览器打开 http://localhost:8000/ 查看效果
+> 使用 https://github.com/XYShaoKang/gatsby-getting-started/tree/master/packages/gatsby-hello-world 作为基础模板
 
 ```sh
-cd gatsby-hello-world
-yarn develop
+gatsby new gatsby-project-config https://github.com/XYShaoKang/gatsby-getting-started/tree/master/packages/gatsby-hello-world
 ```
 
-![hello-world-init-preview](https://github.com/XYShaoKang/gatsby-getting-started/raw/master/assets/gatsby-hello-world/images/hello-world-init-preview.png)
+## Prettier 配置
 
-> hello-world 比较简单,没有太多依赖,而官方的一些稍微复杂点的模板,一般都会带一个插件`gatsby-plugin-sharp`,很容易安装失败.如果安装失败,可以看看这个[临时解决方法](https://gist.github.com/XYShaoKang/ae657eb81279528cca718c678be28215)
+### 安装 VSCode 扩展
 
-初始化之后目录结构:
+按 Ctrl + P (MAC 下: Cmd + P) 输入以下命令,按回车安装
 
 ```sh
-├── .cache # 运行缓存目录
-├── node_modules # 保存安装的模块
-├── public # 编译后文件的保存目录
-├── src
-│   └── pages # Gatsby 会将 pages 目录下的组件将解析为具有路径的页面
-│       └── index.js
-├── static
-├── .gitignore
-├── .prettierignore
-├── .prettierrc
-├── LICENSE
-├── README.md
-├── gatsby-config.js
-├── package.json
-└── yarn.lock
+ext install esbenp.prettier-vscode
 ```
 
-## 支持 styled-components
+### 安装依赖
+
+```sh
+yarn add -D prettier
+```
+
+### Prettier 配置文件`.prettierrc.js`
+
+```js
+// .prettierrc.js
+module.exports = {
+  trailingComma: 'es5',
+  tabWidth: 2,
+  semi: false,
+  singleQuote: true,
+  endOfLine: 'lf',
+  printWidth: 50,
+  arrowParens: 'avoid',
+}
+```
+
+## ESLint 配置
+
+### 安装 VSCode 扩展
+
+按 Ctrl + P (MAC 下: Cmd + P) 输入以下命令,按回车安装
+
+```sh
+ext install dbaeumer.vscode-eslint
+```
+
+### 安装 ESLint 依赖
+
+```sh
+yarn add -D eslint babel-eslint eslint-config-google eslint-plugin-react eslint-plugin-filenames
+```
+
+### ESLint 配置文件`.eslintrc.js`
+
+使用官方仓库的配置,之后在根据需要修改
+
+```js
+// https://github.com/gatsbyjs/gatsby/blob/master/.eslintrc.js
+// .eslintrc.js
+module.exports = {
+  parser: 'babel-eslint',
+  extends: [
+    'google',
+    'eslint:recommended',
+    'plugin:react/recommended',
+  ],
+  plugins: ['react', 'filenames'],
+  parserOptions: {
+    ecmaVersion: 2016,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
+  env: {
+    browser: true,
+    es6: true,
+    node: true,
+    jest: true,
+  },
+  globals: {
+    before: true,
+    after: true,
+    spyOn: true,
+    __PATH_PREFIX__: true,
+    __BASE_PATH__: true,
+    __ASSET_PREFIX__: true,
+  },
+  rules: {
+    'arrow-body-style': [
+      'error',
+      'as-needed',
+      { requireReturnForObjectLiteral: true },
+    ],
+    'no-unused-expressions': [
+      'error',
+      {
+        allowTaggedTemplates: true,
+      },
+    ],
+    'consistent-return': ['error'],
+    'filenames/match-regex': [
+      'error',
+      '^[a-z-\\d\\.]+$',
+      true,
+    ],
+    'no-console': 'off',
+    'no-inner-declarations': 'off',
+    quotes: ['error', 'backtick'],
+    'react/display-name': 'off',
+    'react/jsx-key': 'warn',
+    'react/no-unescaped-entities': 'off',
+    'react/prop-types': 'off',
+    'require-jsdoc': 'off',
+    'valid-jsdoc': 'off',
+  },
+  settings: {
+    react: {
+      version: '16.4.2',
+    },
+  },
+}
+```
+
+## 解决 Prettier ESLint 规则冲突
+
+[推荐配置](https://prettier.io/docs/en/integrating-with-linters.html#recommended-configuration)
 
 安装依赖
 
 ```sh
-yarn add gatsby-plugin-styled-components styled-components babel-plugin-styled-components
+yarn add -D eslint-config-prettier eslint-plugin-prettier
 ```
 
-配置`gatsby-config.js`
+在`.eslintrc.js`中的`extends`添加`'plugin:prettier/recommended'`
 
 ```js
 module.exports = {
-  plugins: [
-    {
-      resolve: `gatsby-plugin-styled-components`,
-      options: {},
-    },
-  ],
+  extends: ['plugin:prettier/recommended'],
 }
 ```
 
-使用`styled-components`,修改`src/pages/index.js`
+## VSCode 中 Prettier 和 ESLint 协作
 
-```js
-import React from "react"
-import styled from "styled-components"
+### 方式一:使用 Prettier 扩展来格式化代码
 
-const Title = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: palevioletred;
-`
-
-const Wrapper = styled.section`
-  padding: 4em;
-  background: papayawhip;
-`
-
-export default () => (
-  <Wrapper>
-    <Title>Hello World!</Title>
-  </Wrapper>
-)
-```
-
-重启服务,运行查看效果
-
-![hello-world-styled-components-preview](https://github.com/XYShaoKang/gatsby-getting-started/raw/master/assets/gatsby-hello-world/images/hello-world-init-preview.png)
-
-## 解析 Markdown 文件
-
-1. 安装依赖
+需要安装依赖
 
 ```sh
-yarn add gatsby-source-filesystem gatsby-transformer-remark
+yarn add -D prettier-eslint@10.1.0
 ```
 
-2. 配置`gatsby-config.js`
+> Prettier 扩展会使用`prettier-eslint`调用`eslint --fix`来修复代码
+>
+> `prettier-eslint@10.1.1`中移除了`core-js`的依赖,但是在生产代码中还是会导入`core-js`,会导致一个[导入错误](https://github.com/prettier/prettier-eslint/issues/348),所以先使用`10.1.0`,等之后修复再使用最新版本
 
-```js
-module.exports = {
-  plugins: [
-    {
-      resolve: `gatsby-plugin-styled-components`,
-      options: {},
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `docs`,
-        path: `${__dirname}/docs/`,
-      },
-    },
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {},
-    },
-  ],
-}
-```
+配置 VSCode 使用 Prettier 来格式化 js 和 jsx 文件
+在项目中新建文件`.vscode/settings.json`
 
-3. 添加演示文档用于测试,在项目根目录新建文件夹`docs`,在`docs`下新建`demo.md`,粘贴以下内容
-
-```md
----
-title: "演示文档"
----
-
-这是一篇简单的演示文档
-```
-
-4. 修改`src/pages/index.js`用来渲染文档
-
-```js
-import React from "react"
-import styled from "styled-components"
-
-const Title = styled.h1`
-  font-size: 1.5em;
-  margin: 0;
-  padding: 0.5em 0;
-  color: palevioletred;
-  background: papayawhip;
-`
-
-const Content = styled.div`
-  margin-top: 0.5em;
-`
-export default ({ data }) => {
-  const {
-    frontmatter: { title },
-    excerpt,
-  } = data.allMarkdownRemark.edges[0].node
-  return (
-    <>
-      <Title>{title}</Title>
-      <Content>{excerpt}</Content>
-    </>
-  )
-}
-
-export const query = graphql`
-  query {
-    allMarkdownRemark {
-      edges {
-        node {
-          frontmatter {
-            title
-          }
-          excerpt
-        }
-      }
-    }
+```json
+// .vscode/settings.json
+{
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
-`
+}
 ```
 
-重启服务,查看效果
+> [官方说明](https://github.com/prettier/prettier-vscode#error-messages)在将来版本中,不再支持 prettier-eslint,所以有可能`prettier-vscode`之后某次更新,就不能用了
 
-![hello-world-parse-markdown-preview](https://github.com/XYShaoKang/gatsby-getting-started/raw/master/assets/gatsby-hello-world/images/hello-world-parse-markdown-preview.png)
+### 方式二:使用 ESLint 扩展来格式化代码
 
-## 资源
+配置`.vscode/settings.json`
 
-- [hello-world](https://github.com/gatsbyjs/gatsby-starter-hello-world) 基础模板
-- [styled-components](https://styled-components.com/) 设置 css
-- [gatsby-plugin-styled-components](https://www.gatsbyjs.org/packages/gatsby-plugin-styled-components/) 在 Gatsby 中支持 styled-components 服务端渲染
-- [gatsby-source-filesystem](https://www.gatsbyjs.org/packages/gatsby-source-filesystem/) 读取文件
-- [gatsby-transformer-remark](https://www.gatsbyjs.org/packages/gatsby-transformer-remark/) 解析 Markdown
+```json
+// .vscode/settings.json
+{
+  "eslint.format.enable": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  }
+}
+```
+
+ESLint 扩展会默认忽略`.`开头的文件,比如`.eslintrc.js`
+如果需要格式化`.`开头的文件,可以在`.eslintignore`中[添加一个否定忽略](https://github.com/eslint/eslint/issues/8429#issuecomment-355967308)来启用对应文件的格式化功能.
+
+```sh
+!.eslintrc.js
+```
+
+或者直接使用`!.*`,这样可以开启所有点文件的格式化功能
+
+## 调试 Gatsby 配置
+
+### 调试构建过程
+
+添加配置文件`.vscode/launch.json`
+
+```json
+// .vscode/launch.json
+{
+  // 使用 IntelliSense 了解相关属性。
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Gatsby develop",
+      "type": "node",
+      "request": "launch",
+      "protocol": "inspector",
+      "program": "${workspaceRoot}/node_modules/gatsby/dist/bin/gatsby",
+      "args": ["develop"],
+      "stopOnEntry": false,
+      "runtimeArgs": ["--nolazy"],
+      "sourceMaps": false,
+      "outputCapture": "std"
+    }
+  ]
+}
+```
+
+> 最新的`gatsby@2.22.*`版本中[调试不能进到断点](https://github.com/gatsbyjs/gatsby/issues/24349),解决办法是降级到`2.21.*`,`yarn add gatsby@2.21.40`,等待官方修复再使用最新版本的
+
+### 调试客户端
+
+需要安装 [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) 扩展
+
+```sh
+ext install msjsdiag.debugger-for-chrome
+```
+
+添加配置文件`.vscode/launch.json`
+
+```json
+// .vscode/launch.json
+{
+  // 使用 IntelliSense 了解相关属性。
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Gatsby Client Debug",
+      "url": "http://localhost:8000",
+      "webRoot": "${workspaceFolder}"
+    }
+  ]
+}
+```
+
+先启动 Gatsby,`yarn develop`,然后按 F5 开始调试.
