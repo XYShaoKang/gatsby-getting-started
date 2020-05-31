@@ -20,10 +20,10 @@
 
 ## 初始化
 
-> 使用 https://github.com/XYShaoKang/gatsby-getting-started/tree/master/packages/gatsby-hello-world 作为基础模板
+> 使用 https://github.com/XYShaoKang/gatsby-hello-world 作为基础模板
 
 ```sh
-gatsby new gatsby-project-config https://github.com/XYShaoKang/gatsby-getting-started/tree/master/packages/gatsby-hello-world
+gatsby new gatsby-project-config https://github.com/XYShaoKang/gatsby-hello-world
 ```
 
 ## Prettier 配置
