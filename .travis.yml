@@ -1,15 +1,16 @@
 language: node_js
 os:
   - linux
+cache: yarn
 before_script:
   - npm install -g gatsby-cli gh-pages
 node_js:
-  - "10"
+  - "12"
 script:
+  - yarn install && node ./script/sync-packages.js
   - echo "skipping tests"
 deploy:
   provider: script
-  # Note: change "docs" to the directory where your gatsby-site lives, if necessary
   script: yarn install && yarn build && gh-pages -d public -r https://$GH_TOKEN@github.com/XYShaoKang/gatsby-getting-started.git
   on:
     branch: master
