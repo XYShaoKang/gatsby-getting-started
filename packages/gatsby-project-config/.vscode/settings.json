@@ -1,24 +1,27 @@
 {
-  // 使用 Prettier 作为格式化工具的配置
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
-
-  // 使用 ESLint 作为格式化工具的配置
-  // "eslint.format.enable": true,
+  // // 使用 Prettier 作为格式化工具的配置
   // "[javascript]": {
-  //   "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  //   "editor.defaultFormatter": "esbenp.prettier-vscode"
   // },
   // "[javascriptreact]": {
-  //   "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  //   "editor.defaultFormatter": "esbenp.prettier-vscode"
   // },
-  // "prettier.disableLanguages": [
-  //   "javascript",
-  //   "javascriptreact",
-  //   "typescript",
-  //   "typescriptreact"
-  // ]
+  // "editor.codeActionsOnSave": {
+  //   "source.fixAll.eslint": true
+  // }
+
+  // 使用 ESLint 作为格式化工具的配置
+  "eslint.format.enable": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "prettier.disableLanguages": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ]
 }

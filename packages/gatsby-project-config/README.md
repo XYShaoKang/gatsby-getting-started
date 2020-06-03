@@ -12,8 +12,9 @@
     - [ESLint 配置文件`.eslintrc.js`](#eslint-配置文件eslintrcjs)
   - [解决 Prettier ESLint 规则冲突](#解决-prettier-eslint-规则冲突)
   - [VSCode 中 Prettier 和 ESLint 协作](#vscode-中-prettier-和-eslint-协作)
-    - [方式一:使用 Prettier 扩展来格式化代码](#方式一使用-prettier-扩展来格式化代码)
-    - [方式二:使用 ESLint 扩展来格式化代码](#方式二使用-eslint-扩展来格式化代码)
+    - [方式一:使用 ESLint 扩展来格式化代码](#方式一使用-eslint-扩展来格式化代码)
+    - [方式二:使用 Prettier 扩展来格式化代码](#方式二使用-prettier-扩展来格式化代码)
+    - [旧版`prettier-vscode`的配置方式](#旧版prettier-vscode的配置方式)
   - [调试 Gatsby 配置](#调试-gatsby-配置)
     - [调试构建过程](#调试构建过程)
     - [调试客户端](#调试客户端)
@@ -165,36 +166,7 @@ module.exports = {
 
 ## VSCode 中 Prettier 和 ESLint 协作
 
-### 方式一:使用 Prettier 扩展来格式化代码
-
-需要安装依赖
-
-```sh
-yarn add -D prettier-eslint@10.1.0
-```
-
-> Prettier 扩展会使用`prettier-eslint`调用`eslint --fix`来修复代码
->
-> `prettier-eslint@10.1.1`中移除了`core-js`的依赖,但是在生产代码中还是会导入`core-js`,会导致一个[导入错误](https://github.com/prettier/prettier-eslint/issues/348),所以先使用`10.1.0`,等之后修复再使用最新版本
-
-配置 VSCode 使用 Prettier 来格式化 js 和 jsx 文件
-在项目中新建文件`.vscode/settings.json`
-
-```json
-// .vscode/settings.json
-{
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
-}
-```
-
-> [官方说明](https://github.com/prettier/prettier-vscode#error-messages)在将来版本中,不再支持 prettier-eslint,所以有可能`prettier-vscode`之后某次更新,就不能用了
-
-### 方式二:使用 ESLint 扩展来格式化代码
+### 方式一:使用 ESLint 扩展来格式化代码
 
 配置`.vscode/settings.json`
 
@@ -219,6 +191,58 @@ ESLint 扩展会默认忽略`.`开头的文件,比如`.eslintrc.js`
 ```
 
 或者直接使用`!.*`,这样可以开启所有点文件的格式化功能
+
+### 方式二:使用 Prettier 扩展来格式化代码
+
+在最新版[`prettier-vscode@v5.0.0`](https://github.com/prettier/prettier-vscode/releases/tag/v5.0.0)中已经[删除了直接对`linter`的集成](https://github.com/prettier/prettier-vscode/commit/1cc04c9d0415c0913f02a252efb31c204597bb13),所以最新版没法像之前那样,通过`prettier-eslint`来集成`ESLint`的修复了(一定要这样用的话,可以通过降级到`prettier-vscode@4`来使用了).如果要使用`Prettier`来格式化的话,就只能按照官方指南中的说的[集成方法](https://github.com/prettier/prettier-vscode#disable-formatting-rules-in-the-linter),让`Prettier`来处理格式,通过配置在保存时使用`ESlint`自动修复代码.只是这样必须要保存文件时,才能触发`ESLint`的修复了.
+
+配置 VSCode 使用 Prettier 来格式化 js 和 jsx 文件
+在项目中新建文件`.vscode/settings.json`
+
+```json
+// .vscode/settings.json
+{
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
+```
+
+> 说实话这个体验很糟糕,之前直接一键格式化代码并且修复 ESLint 错误,可以对比格式化之前和格式化之后的代码,如果感觉不对可以直接撤销更改就好了.现在必须要通过保存,才能触发修复 ESlint 错误.而在开发过程中,通过监听文件改变来触发热加载或者重新编译是很常见的操作.这样之后每次想要去修复 ESLint 错误,还是只是想看看修复错误之后的样子,都必须要去触发热加载或重新编译,这样每次操作的成本就太高了.
+> 我更推荐第一种方式使用 ESLint 扩展来对代码进行格式化.
+
+### 旧版`prettier-vscode`的配置方式
+
+> 需要安装依赖
+>
+> ```sh
+> yarn add -D prettier-eslint@10.1.0
+> ```
+>
+> > Prettier 扩展会使用`prettier-eslint`调用`eslint --fix`来修复代码
+> >
+> > `prettier-eslint@10.1.1`中移除了`core-js`的依赖,但是在生产代码中还是会导入`core-js`,会导致一个[导入错误](https://github.com/prettier/> prettier-eslint/issues/348),所以先使用`10.1.0`,等之后修复再使用最新版本
+>
+> 配置 VSCode 使用 Prettier 来格式化 js 和 jsx 文件
+> 在项目中新建文件`.vscode/settings.json`
+>
+> ```json
+> // .vscode/settings.json
+> {
+>   "[javascript]": {
+>     "editor.defaultFormatter": "esbenp.prettier-vscode"
+>   },
+>   "[javascriptreact]": {
+>     "editor.defaultFormatter": "esbenp.prettier-vscode"
+>   }
+> }
+> ```
 
 ## 调试 Gatsby 配置
 
