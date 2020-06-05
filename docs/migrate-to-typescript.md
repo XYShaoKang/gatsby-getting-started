@@ -9,20 +9,18 @@
   - [配置 ESLint 支持 TypeScript](#配置-eslint-支持-typescript)
   - [完善 GraphQL 类型提示](#完善-graphql-类型提示)
     - [安装`vscode-apollo`扩展](#安装vscode-apollo扩展)
-    - [安装`gatsby-plugin-codegen`](#安装gatsby-plugin-codegen)
+    - [安装`gatsby-plugin-codegen`依赖](#安装gatsby-plugin-codegen依赖)
     - [配置`gatsby-config.js`](#配置gatsby-configjs)
-    - [运行`Gatsby`生成类型文件](#运行gatsby生成类型文件)
-    - [修改`index.tsx`](#修改indextsx)
+    - [重新运行`Gatsby`生成类型文件](#重新运行gatsby生成类型文件)
+    - [修改`index.tsx`以使用生成的类型](#修改indextsx以使用生成的类型)
     - [将自动生成的文件添加到`.gitignore`中](#将自动生成的文件添加到gitignore中)
   - [扩展阅读](#扩展阅读)
 
-> 之前花了些时间将[`gatsby-theme-gitbook`](https://github.com/XYShaoKang/gatsby-theme-gitbook)迁移到 Typescript,以获得在 VSCode 中更好的体验.
+> 之前花了些时间将[`gatsby-theme-gitbook`](https://github.com/XYShaoKang/gatsby-theme-gitbook)迁移到 Typescript,以获得在 VSCode 中更好的编程体验.
 >
-> 整体差不多已经完成迁移,剩下将 Gatsby 的 API 文件也迁移到 TS,不过 Gatsby 库的类型定义并不完善,这里可以看到 [gatsby#21995](https://github.com/gatsbyjs/gatsby/issues/21995) 官方也在将核心代码库迁移到 Typescript,准备等待官方将核心代码库迁移完成,在迁移 API 文件.
+> 整体差不多已经完成迁移,剩下将 Gatsby 的 API 文件也迁移到 TS,这里可以看到 [gatsby#21995](https://github.com/gatsbyjs/gatsby/issues/21995) 官方也在将核心代码库迁移到 Typescript,准备等待官方将核心代码库迁移完成,在迁移 API 文件.
 >
-> 另外还有一些小问题,在后面遇到在慢慢讲.
->
-> 这篇文章用[XYShaoKang/gatsby-project-config](https://github.com/XYShaoKang/gatsby-project-config),演示如何将 gatsby 迁移到 TypeScript,记录遇到的一些问题,希望能帮到同样想要在 Gatsby 中使用 TS 的同学.
+> 这篇文章用[XYShaoKang/gatsby-project-config](https://github.com/XYShaoKang/gatsby-project-config),演示如何将 gatsby 迁移到 TypeScript,希望能帮到同样想要在 Gatsby 中使用 TS 的同学.
 
 迁移步骤:
 
@@ -33,7 +31,7 @@
 ## 初始化项目
 
 ```sh
-gatsby new gatsby-migrate-to-typescript https://github.com/XYShaoKang/gatsby-project-config
+gatsby new gatsby-migrate-to-typescript XYShaoKang/gatsby-project-config
 cd gatsby-migrate-to-typescript
 yarn develop
 ```
@@ -132,7 +130,7 @@ export default Home
 // ...
 ```
 
-这时候会出现一个新的错误,在`excerpt: string`出提示`Parsing error: Unexpected token`,这是因为 ESLint 还无法识别 TS 的语法,下面来配置 ESLint 支持 TS.
+这时候会出现一个新的错误,在`excerpt: string`处提示`Parsing error: Unexpected token`,这是因为 ESLint 还无法识别 TS 的语法,下面来配置 ESLint 支持 TS.
 
 ## 配置 ESLint 支持 TypeScript
 
@@ -164,7 +162,7 @@ module.exports = {
 }
 ```
 
-在`.vscode/settings.json`中添加配置,让`VSCode`使用`ESLint`扩展格式化` ts``tsx `文件
+在`.vscode/settings.json`中添加配置,让`VSCode`使用`ESLint`扩展格式化`ts`和`tsx`文件
 
 ```json
 // .vscode/settings.json
@@ -227,8 +225,10 @@ export const query = graphql`
 `
 ```
 
-我们看看`index.tsx`文件,会发现`PropTypes`和`query`结构非常类似,在`Gatsby`运行时,会把`query`查询的结果作为组件`prop.data`传入组件,而`PropTypes`是用来约束`prop`存在的.所以其实`PropTypes`就是根据`query`写出来的.如果能根据`query`自动生成`PropTypes`就太棒了.
-另外一个问题时在`query`中编写`GraphQL`查询时,并没有类型约束,也没有智能提示.
+我们看看`index.tsx`文件,会发现`PropTypes`和`query`结构非常类似,在`Gatsby`运行时,会把`query`查询的结果作为组件`prop.data`传入组件,而`PropTypes`是用来约束`prop`存在的.所以其实`PropTypes`就是根据`query`写出来的.
+
+如果有依据`query`自动生成`PropTypes`的功能就太棒了.
+另外一个问题是在`query`中编写`GraphQL`查询时,并没有类型约束,也没有智能提示.
 
 这两个问题可以通过`gatsby-plugin-codegen`扩展来解决.
 `gatsby-plugin-codegen`会生成`apollo.config.js`和`schema.json`,配合[`vscode-apollo`](https://marketplace.visualstudio.com/items?itemName=apollographql.vscode-apollo)扩展,可以提供`GraphQL`的类型约束和智能提示.
@@ -242,13 +242,15 @@ export const query = graphql`
 
 ### 安装`vscode-apollo`扩展
 
-按 Ctrl + P (MAC 下: Cmd + P) 输入以下命令,按回车安装
+在 VSCode 中按 `Ctrl + P` ( MAC 下: `Cmd + P`) 输入以下命令,按回车安装
 
 ```sh
 ext install apollographql.vscode-apollo
 ```
 
-### 安装`gatsby-plugin-codegen`
+### 安装`gatsby-plugin-codegen`依赖
+
+在项目中添加依赖
 
 ```sh
 yarn add gatsby-plugin-codegen
@@ -269,59 +271,51 @@ module.exports = {
 }
 ```
 
-### 运行`Gatsby`生成类型文件
+### 重新运行`Gatsby`生成类型文件
 
 ```sh
 yarn develop
 ```
 
-### 修改`index.tsx`
+如果出现以下错误,一般是因为没有为查询命名的缘故,给查询添加命名即可,另外配置正确的话,打开对应的文件,有匿名查询,编辑器会有错误提示.
+
+![fix-anonymous-operations.png](./assets/migrate-to-typescript/images/fix-anonymous-operations.png)
+
+这个命名之后会作为生成的类型名.
+
+### 修改`index.tsx`以使用生成的类型
+
+`gatsby-plugin-codegen`插件会更具查询生成对应的查询名称的类型,保存在对应`tsx`文件同级的`__generated__`目录下.
 
 ```tsx
-import { HomeQuery } from './__generated__/HomeQuery'
+import { HomeQuery } from './__generated__/HomeQuery' // 引入自动生成的类型
 // ...
 
+// interface PageQuery {
+//   data: {
+//     allMarkdownRemark: {
+//       edges: Array<{
+//         node: {
+//           frontmatter: {
+//             title: string
+//           }
+//           excerpt: string
+//         }
+//       }>
+//     }
+//   }
+// }
+
 interface PageQuery {
-  data: HomeQuery
+  data: HomeQuery // 替换之前手写的类型
 }
 
-const Home: FC<PageQuery> = ({ data }) => {
-  const node = data.allMarkdownRemark.edges[0].node
-
-  const title = node.frontmatter?.title
-  const excerpt = node.excerpt
-
-  return (
-    <>
-      <Title>{title}</Title>
-      <Content>{excerpt}</Content>
-    </>
-  )
-}
-
-export default Home
-
-export const query = graphql`
-  query HomeQuery {
-    allMarkdownRemark {
-      edges {
-        node {
-          frontmatter {
-            title
-          }
-          excerpt
-        }
-      }
-    }
-  }
-`
+// ...
 ```
 
 ### 将自动生成的文件添加到`.gitignore`中
 
-> `apollo.config.js`,`schema.json`,`__generated__`能通过运行时生成,所以可以添加到`.gitignore`中,不用提交到 git 中.
->
-> 当然如果有需要也可以提交.
+> `apollo.config.js`,`schema.json`,`__generated__`能通过运行时生成,所以可以添加到`.gitignore`中,不用提交到 git 中.当然如果有需要也可以选择提交到 git 中.
 
 ```
 # Generated types by gatsby-plugin-codegen
@@ -330,16 +324,14 @@ apollo.config.js
 schema.json
 ```
 
----
-
 ## 扩展阅读
 
 - 相关资料
-  - [Native TypeScript support](https://github.com/gatsbyjs/gatsby/issues/18983)
+  - [Gatsby Native TypeScript support](https://github.com/gatsbyjs/gatsby/issues/18983)
   - [Function Components](https://github.com/typescript-cheatsheets/react-typescript-cheatsheet#function-components)
   - [tsconfig.json](https://www.typescriptlang.org/v2/docs/handbook/tsconfig-json.html)
-  - [gatsby-plugin-codegen](https://github.com/daugsbi/gatsby-plugin-codegen)
   - [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint)
+  - [gatsby-plugin-codegen](https://github.com/daugsbi/gatsby-plugin-codegen)
   - [Why the TypeScript team is using Gatsby for its new website](https://www.gatsbyjs.cn/blog/2020-01-23-why-typescript-chose-gatsby/)
 - 类似教程
   - [INTRODUCTION: MIGRATING GATSBY SITE TO TYPESCRIPT](https://www.extensive.one/migrating-gatsby-to-typescript-introduction/)
