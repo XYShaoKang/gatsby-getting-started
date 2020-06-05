@@ -4,6 +4,7 @@
   "scripts": {
     "hw": "yarn workspace gatsby-hello-world",
     "pc": "yarn workspace gatsby-project-config",
+    "mtt": "yarn workspace gatsby-migrate-to-typescript",
     "www": "yarn workspace www",
     "build": "node build.js",
     "clean": "rm -rf public && yarn workspaces run clean"
