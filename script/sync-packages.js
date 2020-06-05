@@ -10,6 +10,10 @@ const packages = [
     name: 'gatsby-project-config',
     repository: 'gatsby-project-config',
   },
+  {
+    name: 'gatsby-migrate-to-typescript',
+    repository: 'gatsby-migrate-to-typescript',
+  },
 ]
 
 const GH_TOKEN = process.env.GH_TOKEN
