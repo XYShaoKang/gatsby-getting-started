@@ -31,7 +31,7 @@ gatsby new gatsby-project-config https://github.com/XYShaoKang/gatsby-hello-worl
 
 ### 安装 VSCode 扩展
 
-按 Ctrl + P (MAC 下: Cmd + P) 输入以下命令,按回车安装
+在 VSCode 中按 `Ctrl + P` ( MAC 下: `Cmd + P`) 输入以下命令,按回车安装
 
 ```sh
 ext install esbenp.prettier-vscode
@@ -62,7 +62,7 @@ module.exports = {
 
 ### 安装 VSCode 扩展
 
-按 Ctrl + P (MAC 下: Cmd + P) 输入以下命令,按回车安装
+在 VSCode 中按 `Ctrl + P` ( MAC 下: `Cmd + P`) 输入以下命令,按回车安装
 
 ```sh
 ext install dbaeumer.vscode-eslint
