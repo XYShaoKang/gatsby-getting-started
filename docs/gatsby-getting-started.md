@@ -1,5 +1,7 @@
 # Gatsby 入门
 
+示例仓库https://github.com/XYShaoKang/gatsby-hello-world
+
 查看[演示](https://xyshaokang.github.io/gatsby-getting-started/gatsby-hello-world/)
 
 - [Gatsby 入门](#gatsby-入门)

@@ -1,5 +1,7 @@
 # Gatsby 项目配置
 
+示例仓库 https://github.com/XYShaoKang/gatsby-project-config
+
 - [Gatsby 项目配置](#gatsby-项目配置)
   - [初始化](#初始化)
   - [Prettier 配置](#prettier-配置)

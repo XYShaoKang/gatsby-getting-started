@@ -1,5 +1,7 @@
 # 将 Gatsby 迁移到 TypeScript
 
+示例仓库 https://github.com/XYShaoKang/gatsby-migrate-to-typescript
+
 - [将 Gatsby 迁移到 TypeScript](#将-gatsby-迁移到-typescript)
   - [初始化项目](#初始化项目)
   - [TS 配置](#ts-配置)
