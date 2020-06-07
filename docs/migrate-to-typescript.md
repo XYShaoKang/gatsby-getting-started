@@ -9,11 +9,8 @@
   - [配置 ESLint 支持 TypeScript](#配置-eslint-支持-typescript)
   - [完善 GraphQL 类型提示](#完善-graphql-类型提示)
     - [安装`vscode-apollo`扩展](#安装vscode-apollo扩展)
-    - [安装`gatsby-plugin-codegen`依赖](#安装gatsby-plugin-codegen依赖)
-    - [配置`gatsby-config.js`](#配置gatsby-configjs)
-    - [重新运行`Gatsby`生成类型文件](#重新运行gatsby生成类型文件)
-    - [修改`index.tsx`以使用生成的类型](#修改indextsx以使用生成的类型)
-    - [将自动生成的文件添加到`.gitignore`中](#将自动生成的文件添加到gitignore中)
+    - [方式一: 使用`gatsby-plugin-codegen`](#方式一-使用gatsby-plugin-codegen)
+    - [方式二: 使用`gatsby-plugin-typegen`](#方式二-使用gatsby-plugin-typegen)
   - [扩展阅读](#扩展阅读)
 
 > 之前花了些时间将[`gatsby-theme-gitbook`](https://github.com/XYShaoKang/gatsby-theme-gitbook)迁移到 Typescript,以获得在 VSCode 中更好的编程体验.
@@ -26,11 +23,11 @@
 
 - TS 配置
 - 配置 ESLint 支持 TS
-- 使用`gatsby-plugin-codegen`完善 GraphQL 类型提示
+- 完善 GraphQL 类型提示
 
 ## 初始化项目
 
-```sh
+```bash
 gatsby new gatsby-migrate-to-typescript XYShaoKang/gatsby-project-config
 cd gatsby-migrate-to-typescript
 yarn develop
@@ -45,7 +42,7 @@ yarn develop
 
 ### 安装`typescript`
 
-```sh
+```bash
 yarn add -D typescript
 ```
 
@@ -85,16 +82,29 @@ yarn add -D typescript
 
 安装`styled-components`的声明文件
 
-```sh
+```bash
 yarn add -D @types/styled-components
 ```
 
 修改`index.tsx`
 
-```ts
+```tsx
 import React, { FC } from 'react'
+import styled from 'styled-components'
+import { graphql } from 'gatsby'
+import { HomeQuery } from './__generated__/HomeQuery'
 
-// ...
+const Title = styled.h1`
+  font-size: 1.5em;
+  margin: 0;
+  padding: 0.5em 0;
+  color: palevioletred;
+  background: papayawhip;
+`
+
+const Content = styled.div`
+  margin-top: 0.5em;
+`
 
 interface PageQuery {
   data: {
@@ -127,7 +137,20 @@ const Home: FC<PageQuery> = ({ data }) => {
 
 export default Home
 
-// ...
+export const query = graphql`
+  query HomeQuery {
+    allMarkdownRemark {
+      edges {
+        node {
+          frontmatter {
+            title
+          }
+          excerpt
+        }
+      }
+    }
+  }
+`
 ```
 
 这时候会出现一个新的错误,在`excerpt: string`处提示`Parsing error: Unexpected token`,这是因为 ESLint 还无法识别 TS 的语法,下面来配置 ESLint 支持 TS.
@@ -136,7 +159,7 @@ export default Home
 
 安装依赖
 
-```sh
+```bash
 yarn add -D @typescript-eslint/parser @typescript-eslint/eslint-plugin
 ```
 
@@ -187,6 +210,7 @@ module.exports = {
 
 ```tsx
 // index.tsx
+import React, { FC } from 'react'
 // ...
 interface PageQuery {
   data: {
@@ -210,7 +234,7 @@ const Home: FC<PageQuery> = ({ data }) => {
 export default Home
 
 export const query = graphql`
-  query {
+  query HomeQuery {
     allMarkdownRemark {
       edges {
         node {
@@ -230,13 +254,30 @@ export const query = graphql`
 如果有依据`query`自动生成`PropTypes`的功能就太棒了.
 另外一个问题是在`query`中编写`GraphQL`查询时,并没有类型约束,也没有智能提示.
 
-这两个问题可以通过`gatsby-plugin-codegen`扩展来解决.
-`gatsby-plugin-codegen`会生成`apollo.config.js`和`schema.json`,配合[`vscode-apollo`](https://marketplace.visualstudio.com/items?itemName=apollographql.vscode-apollo)扩展,可以提供`GraphQL`的类型约束和智能提示.
-另外会自动根据`query`中的`GraphQL`查询,生成 TS 类型,放在对应的`tsx`文件同级目录下的`__generated__`文件夹,使用时只需要引入即可.
+总结以下需要完善的体验包括:
 
-> 这里要注意,`Apollo`不支持匿名查询,需要使用命名查询
->
-> 另外需要运行`Gatsby`之后才能通过`gatsby-plugin-codegen`生成类型文件
+- GraphQL 查询编写时的智能提示,以及错误检查
+- 能够从 GraphQL 查询生成对应的 TypeScript 类型.这样能保证类型的唯一事实来源,并消除 TS 中冗余的类型声明.毕竟如果经常需要手动更新两处类型,会更容易出错,而且也并不能保证手动定义类型的正确性.
+
+实现方式:
+
+- 通过生成架构文件,配合`Apollo GraphQL for VS Code`插件,实现智能提示,以及错误检查
+- 通过`graphql-code-generator`或者`apollo`生成 TS 类型定义文件
+
+如果自己去配置的话,是挺耗费时间的,需要去了解`graphql-code-generator`的使用,以及`Apollo`的架构等知识.
+不过好在社区中已经有对应的 Gatsby 插件集成了上述工具可以直接使用,能让我们不用去深究对应知识的情况下,达到优化 GraphQL 编程的体验.
+尝试过以下两个插件能解决上述问题,可以任选其一使用
+
+- [gatsby-plugin-codegen](https://github.com/daugsbi/gatsby-plugin-codegen)
+- [gatsby-plugin-typegen](https://github.com/cometkim/gatsby-plugin-typegen)
+
+另外还有一款插件[`gatsby-plugin-graphql-codegen`](https://github.com/d4rekanguok/gatsby-typescript/tree/master/packages/gatsby-plugin-graphql-codegen)也可以生成 TS 类型,不过配置略麻烦,并且上述两个插件都可以满足我现在的需求,所以没有去尝试,感兴趣的可以尝试一下.
+
+**注意点:**
+
+1. `Apollo`不支持匿名查询,需要使用命名查询
+2. 第一次生成,需要运行`Gatsby`之后才能生成类型文件
+3. 整个项目内不能有[相同命名的查询](https://github.com/apollographql/apollo-tooling/issues/670),不然会因为名字有冲突而生成失败
 
 下面是具体操作
 
@@ -244,19 +285,23 @@ export const query = graphql`
 
 在 VSCode 中按 `Ctrl + P` ( MAC 下: `Cmd + P`) 输入以下命令,按回车安装
 
-```sh
+```bash
 ext install apollographql.vscode-apollo
 ```
 
-### 安装`gatsby-plugin-codegen`依赖
+### 方式一: 使用`gatsby-plugin-codegen`
 
-在项目中添加依赖
+`gatsby-plugin-codegen`默认会生成`apollo.config.js`和`schema.json`,配合[`vscode-apollo`](https://marketplace.visualstudio.com/items?itemName=apollographql.vscode-apollo)扩展,可以提供`GraphQL`的类型约束和智能提示.
+另外会自动根据`query`中的`GraphQL`查询,生成 TS 类型,放在对应的`tsx`文件同级目录下的`__generated__`文件夹,使用时只需要引入即可.
+如果需要在运行时自动生成 TS 类型,需要添加`watch: true`配置.
 
-```sh
+**安装`gatsby-plugin-codegen`**
+
+```bash
 yarn add gatsby-plugin-codegen
 ```
 
-### 配置`gatsby-config.js`
+**配置`gatsby-config.js`**
 
 ```js
 // gatsby-config.js
@@ -265,15 +310,17 @@ module.exports = {
     // ...
     {
       resolve: `gatsby-plugin-codegen`,
-      options: {},
+      options: {
+        watch: true,
+      },
     },
   ],
 }
 ```
 
-### 重新运行`Gatsby`生成类型文件
+**重新运行开发服务生成类型文件**
 
-```sh
+```bash
 yarn develop
 ```
 
@@ -283,7 +330,7 @@ yarn develop
 
 这个命名之后会作为生成的类型名.
 
-### 修改`index.tsx`以使用生成的类型
+**修改`index.tsx`以使用生成的类型**
 
 `gatsby-plugin-codegen`插件会更具查询生成对应的查询名称的类型,保存在对应`tsx`文件同级的`__generated__`目录下.
 
@@ -313,7 +360,7 @@ interface PageQuery {
 // ...
 ```
 
-### 将自动生成的文件添加到`.gitignore`中
+**将自动生成的文件添加到`.gitignore`中**
 
 > `apollo.config.js`,`schema.json`,`__generated__`能通过运行时生成,所以可以添加到`.gitignore`中,不用提交到 git 中.当然如果有需要也可以选择提交到 git 中.
 
@@ -324,14 +371,116 @@ apollo.config.js
 schema.json
 ```
 
+### 方式二: 使用`gatsby-plugin-typegen`
+
+`gatsby-plugin-typegen`通过配置生成`gatsby-schema.graphql`和`gatsby-plugin-documents.graphql`配合手动创建的`apollo.config.js`提供`GraphQL`的类型约束和智能提示.
+根据`GraphQL`查询生成`gatsby-types.d.ts`,生成的类型放在命名空间`GatsbyTypes`下,使用时通过`GatsbyTypes.HomeQueryQuery`来引入,`HomeQueryQuery`是由对应的命名查询生成
+
+**安装`gatsby-plugin-typegen`**
+
+```bash
+yarn add gatsby-plugin-typegen
+```
+
+**配置**
+
+```js
+// gatsby-config.js
+module.exports = {
+  plugins: [
+    // ...
+    {
+      resolve: `gatsby-plugin-typegen`,
+      options: {
+        outputPath: `src/__generated__/gatsby-types.d.ts`,
+        emitSchema: {
+          'src/__generated__/gatsby-schema.graphql': true,
+        },
+        emitPluginDocuments: {
+          'src/__generated__/gatsby-plugin-documents.graphql': true,
+        },
+      },
+    },
+  ],
+}
+```
+
+```js
+//apollo.config.js
+module.exports = {
+  client: {
+    tagName: `graphql`,
+    includes: [
+      `./src/**/*.{ts,tsx}`,
+      `./src/__generated__/gatsby-plugin-documents.graphql`,
+    ],
+    service: {
+      name: `GatsbyJS`,
+      localSchemaFile: `./src/__generated__/gatsby-schema.graphql`,
+    },
+  },
+}
+```
+
+**重新运行开发服务生成类型文件**
+
+```bash
+yarn develop
+```
+
+**修改`index.tsx`以使用生成的类型**
+
+`gatsby-plugin-codegen`插件会更具查询生成对应的查询名称的类型,保存在对应`tsx`文件同级的`__generated__`目录下.
+
+```tsx
+// ...
+
+// interface PageQuery {
+//   data: {
+//     allMarkdownRemark: {
+//       edges: Array<{
+//         node: {
+//           frontmatter: {
+//             title: string
+//           }
+//           excerpt: string
+//         }
+//       }>
+//     }
+//   }
+// }
+
+interface PageQuery {
+  data: GatsbyTypes.HomeQueryQuery // 替换之前手写的类型
+}
+
+// ...
+```
+
+**将自动生成的文件添加到`.gitignore`中**
+
+> `__generated__`能通过运行时生成,所以可以添加到`.gitignore`中,不用提交到 git 中.当然如果有需要也可以选择提交到 git 中.
+
+```
+# Generated types by gatsby-plugin-codegen
+__generated__
+```
+
 ## 扩展阅读
 
-- 相关资料
+- TypeScript 相关资料
   - [Gatsby Native TypeScript support](https://github.com/gatsbyjs/gatsby/issues/18983)
   - [Function Components](https://github.com/typescript-cheatsheets/react-typescript-cheatsheet#function-components)
   - [tsconfig.json](https://www.typescriptlang.org/v2/docs/handbook/tsconfig-json.html)
   - [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint)
-  - [gatsby-plugin-codegen](https://github.com/daugsbi/gatsby-plugin-codegen)
   - [Why the TypeScript team is using Gatsby for its new website](https://www.gatsbyjs.cn/blog/2020-01-23-why-typescript-chose-gatsby/)
+- GraphQL 相关资料
+  - [Why Gatsby Uses GraphQL](https://www.gatsbyjs.org/docs/why-gatsby-uses-graphql/)
+  - [gatsby-plugin-codegen](https://github.com/daugsbi/gatsby-plugin-codegen)
+  - [gatsby-plugin-typegen](https://github.com/cometkim/gatsby-plugin-typegen)
+  - [gatsby-plugin-graphql-codegen](https://github.com/d4rekanguok/gatsby-typescript/tree/master/packages/gatsby-plugin-graphql-codegen)
+  - [graphql-code-generator](https://github.com/dotansimha/graphql-code-generator)
+  - [Apollo GraphQL for VS Code](https://marketplace.visualstudio.com/items?itemName=apollographql.vscode-apollo)
+  - [Why does codegen:generate require query names to be unique? #670](https://github.com/apollographql/apollo-tooling/issues/670)
 - 类似教程
   - [INTRODUCTION: MIGRATING GATSBY SITE TO TYPESCRIPT](https://www.extensive.one/migrating-gatsby-to-typescript-introduction/)
