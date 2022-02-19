@@ -3831,7 +3831,7 @@ babel-core@7.0.0-bridge.0:
 
 babel-eslint@^10.1.0:
   version "10.1.0"
-  resolved "http://r.cnpmjs.org/babel-eslint/download/babel-eslint-10.1.0.tgz#6968e568a910b78fb3779cdd8b6ac2f479943232"
+  resolved "https://r.cnpmjs.org/babel-eslint/download/babel-eslint-10.1.0.tgz#6968e568a910b78fb3779cdd8b6ac2f479943232"
   integrity sha1-aWjlaKkQt4+zd5zdi2rC9HmUMjI=
   dependencies:
     "@babel/code-frame" "^7.0.0"
@@ -4627,7 +4627,7 @@ chalk@^3.0.0:
 
 chalk@^4.0.0:
   version "4.0.0"
-  resolved "http://r.cnpmjs.org/chalk/download/chalk-4.0.0.tgz#6e98081ed2d17faab615eb52ac66ec1fe6209e72"
+  resolved "https://r.cnpmjs.org/chalk/download/chalk-4.0.0.tgz#6e98081ed2d17faab615eb52ac66ec1fe6209e72"
   integrity sha1-bpgIHtLRf6q2FetSrGbsH+YgnnI=
   dependencies:
     ansi-styles "^4.1.0"
@@ -6531,12 +6531,12 @@ escape-string-regexp@1.0.5, escape-string-regexp@^1.0.2, escape-string-regexp@^1
 
 eslint-config-google@^0.14.0:
   version "0.14.0"
-  resolved "http://r.cnpmjs.org/eslint-config-google/download/eslint-config-google-0.14.0.tgz#4f5f8759ba6e11b424294a219dbfa18c508bcc1a"
+  resolved "https://r.cnpmjs.org/eslint-config-google/download/eslint-config-google-0.14.0.tgz#4f5f8759ba6e11b424294a219dbfa18c508bcc1a"
   integrity sha1-T1+HWbpuEbQkKUohnb+hjFCLzBo=
 
 eslint-config-prettier@^6.11.0:
   version "6.11.0"
-  resolved "http://r.cnpmjs.org/eslint-config-prettier/download/eslint-config-prettier-6.11.0.tgz#f6d2238c1290d01c859a8b5c1f7d352a0b0da8b1"
+  resolved "https://r.cnpmjs.org/eslint-config-prettier/download/eslint-config-prettier-6.11.0.tgz#f6d2238c1290d01c859a8b5c1f7d352a0b0da8b1"
   integrity sha1-9tIjjBKQ0ByFmotcH301KgsNqLE=
   dependencies:
     get-stdin "^6.0.0"
@@ -6577,7 +6577,7 @@ eslint-module-utils@^2.4.1:
 
 eslint-plugin-filenames@^1.3.2:
   version "1.3.2"
-  resolved "http://r.cnpmjs.org/eslint-plugin-filenames/download/eslint-plugin-filenames-1.3.2.tgz#7094f00d7aefdd6999e3ac19f72cea058e590cf7"
+  resolved "https://r.cnpmjs.org/eslint-plugin-filenames/download/eslint-plugin-filenames-1.3.2.tgz#7094f00d7aefdd6999e3ac19f72cea058e590cf7"
   integrity sha1-cJTwDXrv3WmZ46wZ9yzqBY5ZDPc=
   dependencies:
     lodash.camelcase "4.3.0"
@@ -6635,7 +6635,7 @@ eslint-plugin-jsx-a11y@^6.2.3:
 
 eslint-plugin-prettier@^3.1.3:
   version "3.1.3"
-  resolved "http://r.cnpmjs.org/eslint-plugin-prettier/download/eslint-plugin-prettier-3.1.3.tgz#ae116a0fc0e598fdae48743a4430903de5b4e6ca"
+  resolved "https://r.cnpmjs.org/eslint-plugin-prettier/download/eslint-plugin-prettier-3.1.3.tgz#ae116a0fc0e598fdae48743a4430903de5b4e6ca"
   integrity sha1-rhFqD8DlmP2uSHQ6RDCQPeW05so=
   dependencies:
     prettier-linter-helpers "^1.0.0"
@@ -6647,7 +6647,7 @@ eslint-plugin-react-hooks@^1.7.0:
 
 eslint-plugin-react@^7.20.0:
   version "7.20.0"
-  resolved "http://r.cnpmjs.org/eslint-plugin-react/download/eslint-plugin-react-7.20.0.tgz#f98712f0a5e57dfd3e5542ef0604b8739cd47be3"
+  resolved "https://r.cnpmjs.org/eslint-plugin-react/download/eslint-plugin-react-7.20.0.tgz#f98712f0a5e57dfd3e5542ef0604b8739cd47be3"
   integrity sha1-+YcS8KXlff0+VULvBgS4c5zUe+M=
   dependencies:
     array-includes "^3.1.1"
@@ -6742,7 +6742,7 @@ eslint@^6.8.0:
 
 eslint@^7.1.0:
   version "7.1.0"
-  resolved "http://r.cnpmjs.org/eslint/download/eslint-7.1.0.tgz#d9a1df25e5b7859b0a3d86bb05f0940ab676a851"
+  resolved "https://r.cnpmjs.org/eslint/download/eslint-7.1.0.tgz#d9a1df25e5b7859b0a3d86bb05f0940ab676a851"
   integrity sha1-2aHfJeW3hZsKPYa7BfCUCrZ2qFE=
   dependencies:
     "@babel/code-frame" "^7.0.0"
@@ -6793,7 +6793,7 @@ espree@^6.1.2:
 
 espree@^7.0.0:
   version "7.0.0"
-  resolved "http://r.cnpmjs.org/espree/download/espree-7.0.0.tgz#8a7a60f218e69f120a842dc24c5a88aa7748a74e"
+  resolved "https://r.cnpmjs.org/espree/download/espree-7.0.0.tgz#8a7a60f218e69f120a842dc24c5a88aa7748a74e"
   integrity sha1-inpg8hjmnxIKhC3CTFqIqndIp04=
   dependencies:
     acorn "^7.1.1"
@@ -7090,7 +7090,7 @@ fast-deep-equal@^3.1.1:
 
 fast-diff@^1.1.2:
   version "1.2.0"
-  resolved "http://r.cnpmjs.org/fast-diff/download/fast-diff-1.2.0.tgz#73ee11982d86caaf7959828d519cfe927fac5f03"
+  resolved "https://r.cnpmjs.org/fast-diff/download/fast-diff-1.2.0.tgz#73ee11982d86caaf7959828d519cfe927fac5f03"
   integrity sha1-c+4RmC2Gyq95WYKNUZz+kn+sXwM=
 
 fast-glob@^2.2.2, fast-glob@^2.2.6:
@@ -7769,7 +7769,7 @@ gatsby-transformer-remark@^2.8.9:
 
 gatsby@2.21.40:
   version "2.21.40"
-  resolved "http://r.cnpmjs.org/gatsby/download/gatsby-2.21.40.tgz#c2c807ce5f0cf17b6f5d299df272d6d35ebd301f"
+  resolved "https://r.cnpmjs.org/gatsby/download/gatsby-2.21.40.tgz#c2c807ce5f0cf17b6f5d299df272d6d35ebd301f"
   integrity sha1-wsgHzl8M8XtvXSmd8nLW0169MB8=
   dependencies:
     "@babel/code-frame" "^7.8.3"
@@ -8123,7 +8123,7 @@ get-stdin@^4.0.1:
 
 get-stdin@^6.0.0:
   version "6.0.0"
-  resolved "http://r.cnpmjs.org/get-stdin/download/get-stdin-6.0.0.tgz#9e09bf712b360ab9225e812048f71fde9c89657b"
+  resolved "https://r.cnpmjs.org/get-stdin/download/get-stdin-6.0.0.tgz#9e09bf712b360ab9225e812048f71fde9c89657b"
   integrity sha1-ngm/cSs2CrkiXoEgSPcf3pyJZXs=
 
 get-stream@3.0.0, get-stream@^3.0.0:
@@ -10328,7 +10328,7 @@ levn@^0.3.0, levn@~0.3.0:
 
 levn@^0.4.1:
   version "0.4.1"
-  resolved "http://r.cnpmjs.org/levn/download/levn-0.4.1.tgz#ae4562c007473b932a6200d403268dd2fffc6ade"
+  resolved "https://r.cnpmjs.org/levn/download/levn-0.4.1.tgz#ae4562c007473b932a6200d403268dd2fffc6ade"
   integrity sha1-rkViwAdHO5MqYgDUAyaN0v/8at4=
   dependencies:
     prelude-ls "^1.2.1"
@@ -10484,7 +10484,7 @@ lodash._reinterpolate@^3.0.0:
 
 lodash.camelcase@4.3.0:
   version "4.3.0"
-  resolved "http://r.cnpmjs.org/lodash.camelcase/download/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
+  resolved "https://r.cnpmjs.org/lodash.camelcase/download/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
   integrity sha1-soqmKIorn8ZRA1x3EfZathkDMaY=
 
 lodash.clonedeep@4.5.0, lodash.clonedeep@^4.5.0:
@@ -10549,7 +10549,7 @@ lodash.isstring@^4.0.1:
 
 lodash.kebabcase@4.1.1:
   version "4.1.1"
-  resolved "http://r.cnpmjs.org/lodash.kebabcase/download/lodash.kebabcase-4.1.1.tgz#8489b1cb0d29ff88195cceca448ff6d6cc295c36"
+  resolved "https://r.cnpmjs.org/lodash.kebabcase/download/lodash.kebabcase-4.1.1.tgz#8489b1cb0d29ff88195cceca448ff6d6cc295c36"
   integrity sha1-hImxyw0p/4gZXM7KRI/21swpXDY=
 
 lodash.map@^4.6.0:
@@ -10589,7 +10589,7 @@ lodash.set@^4.3.2:
 
 lodash.snakecase@4.1.1:
   version "4.1.1"
-  resolved "http://r.cnpmjs.org/lodash.snakecase/download/lodash.snakecase-4.1.1.tgz#39d714a35357147837aefd64b5dcbb16becd8f8d"
+  resolved "https://r.cnpmjs.org/lodash.snakecase/download/lodash.snakecase-4.1.1.tgz#39d714a35357147837aefd64b5dcbb16becd8f8d"
   integrity sha1-OdcUo1NXFHg3rv1ktdy7Fr7Nj40=
 
 lodash.sortby@^4.7.0:
@@ -10629,7 +10629,7 @@ lodash.uniq@4.5.0, lodash.uniq@^4.5.0:
 
 lodash.upperfirst@4.3.1:
   version "4.3.1"
-  resolved "http://r.cnpmjs.org/lodash.upperfirst/download/lodash.upperfirst-4.3.1.tgz#1365edf431480481ef0d1c68957a5ed99d49f7ce"
+  resolved "https://r.cnpmjs.org/lodash.upperfirst/download/lodash.upperfirst-4.3.1.tgz#1365edf431480481ef0d1c68957a5ed99d49f7ce"
   integrity sha1-E2Xt9DFIBIHvDRxolXpe2Z1J984=
 
 lodash.xorby@^4.7.0:
@@ -11967,7 +11967,7 @@ optionator@^0.8.3:
 
 optionator@^0.9.1:
   version "0.9.1"
-  resolved "http://r.cnpmjs.org/optionator/download/optionator-0.9.1.tgz#4f236a6373dae0566a6d43e1326674f50c291499"
+  resolved "https://r.cnpmjs.org/optionator/download/optionator-0.9.1.tgz#4f236a6373dae0566a6d43e1326674f50c291499"
   integrity sha1-TyNqY3Pa4FZqbUPhMmZ09QwpFJk=
   dependencies:
     deep-is "^0.1.3"
@@ -12898,7 +12898,7 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.26, postcss@^7.0.27, postcss@^7.0.3
 
 prelude-ls@^1.2.1:
   version "1.2.1"
-  resolved "http://r.cnpmjs.org/prelude-ls/download/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
+  resolved "https://r.cnpmjs.org/prelude-ls/download/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha1-3rxkidem5rDnYRiIzsiAM30xY5Y=
 
 prelude-ls@~1.1.2:
@@ -12918,7 +12918,7 @@ prepend-http@^2.0.0:
 
 prettier-linter-helpers@^1.0.0:
   version "1.0.0"
-  resolved "http://r.cnpmjs.org/prettier-linter-helpers/download/prettier-linter-helpers-1.0.0.tgz#d23d41fe1375646de2d0104d3454a3008802cf7b"
+  resolved "https://r.cnpmjs.org/prettier-linter-helpers/download/prettier-linter-helpers-1.0.0.tgz#d23d41fe1375646de2d0104d3454a3008802cf7b"
   integrity sha1-0j1B/hN1ZG3i0BBNNFSjAIgCz3s=
   dependencies:
     fast-diff "^1.1.2"
@@ -13182,9 +13182,9 @@ querystring@0.2.0, querystring@^0.2.0:
   integrity sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=
 
 querystringify@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.npm.taobao.org/querystringify/download/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
-  integrity sha1-YOWl/WSn+L+k0qsu1v30yFutFU4=
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.2.0.tgz#3345941b4153cb9d082d8eee4cda2016a9aef7f6"
+  integrity sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==
 
 quick-lru@^1.0.0:
   version "1.1.0"
@@ -13912,7 +13912,7 @@ require-main-filename@^2.0.0:
 
 requires-port@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.npm.taobao.org/requires-port/download/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
+  resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
 resolve-cwd@^2.0.0:
@@ -15633,7 +15633,7 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"
-  resolved "http://r.cnpmjs.org/type-check/download/type-check-0.4.0.tgz#07b8203bfa7056c0657050e3ccd2c37730bab8f1"
+  resolved "https://r.cnpmjs.org/type-check/download/type-check-0.4.0.tgz#07b8203bfa7056c0657050e3ccd2c37730bab8f1"
   integrity sha1-B7ggO/pwVsBlcFDjzNLDdzC6uPE=
   dependencies:
     prelude-ls "^1.2.1"
@@ -16108,9 +16108,9 @@ url-parse-lax@^3.0.0:
     prepend-http "^2.0.0"
 
 url-parse@^1.1.8, url-parse@^1.4.3:
-  version "1.4.7"
-  resolved "https://registry.npm.taobao.org/url-parse/download/url-parse-1.4.7.tgz#a8a83535e8c00a316e403a5db4ac1b9b853ae278"
-  integrity sha1-qKg1NejACjFuQDpdtKwbm4U64ng=
+  version "1.5.7"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.5.7.tgz#00780f60dbdae90181f51ed85fb24109422c932a"
+  integrity sha512-HxWkieX+STA38EDk7CE9MEryFeHCKzgagxlGvsdS7WBImq9Mk+PGwiT56w82WI3aicwJA8REp42Cxo98c8FZMA==
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
